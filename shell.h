@@ -232,4 +232,7 @@ int replace_alias(info_t *);
 int replace_vars(info_t *);
 int replace_string(char **, char *);
 
+int our_execve(char *command, char **argv, char **env);
+int fork_and_wait(char *command, char **argv, char **env);
+
 #endif
