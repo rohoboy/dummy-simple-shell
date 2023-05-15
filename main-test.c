@@ -41,15 +41,9 @@ int main(int a, char **argv)
 
 		}
 
-		printf("strings entered: %d\n", j);
-		printf("The number of arguments: %d\n", a);
-
 		fork_and_wait(argv[0], argv, environ);
 		j = 0;
 		token = NULL;
-
-
-		printf("One command down\n");
 
 	}
 	return (0);
