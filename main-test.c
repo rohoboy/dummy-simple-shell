@@ -3,15 +3,14 @@
 #include <stdlib.h>
 extern char **environ;
 
-int main(int a, char **argv)
+int main()
 {
+	char *argv[10];
 	ssize_t check_length;
 	size_t len = 0;
 	char *inputstring = NULL;
 	char *token;
 /*	int check_fork_and_wait;*/
-
-
 	while (1)
 	{
 		printf(":) ");
@@ -19,9 +18,9 @@ int main(int a, char **argv)
 		inputstring[check_length - 1] = '\0';
 		if (check_length == -1)
                 {
-                        perror("Error: (getline)");
-                        free(inputstring);
-                        exit(EXIT_FAILURE);
+			perror("Error: (getline)");
+			free(inputstring);
+			exit(EXIT_FAILURE);
                 }
 		else
 		{
@@ -38,13 +37,12 @@ int main(int a, char **argv)
 			argv[j] = token;
 			token = strtok(NULL, " ");
 			j++;
-
 		}
+		argv[j] = '\0';
 
 		fork_and_wait(argv[0], argv, environ);
 		j = 0;
 		token = NULL;
-
 	}
 	return (0);
 }

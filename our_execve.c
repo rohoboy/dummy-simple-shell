@@ -12,6 +12,23 @@
  */
 int our_execve(char *command, char **argv, char **env)
 {
+	printf("command : %s\n", command);
+	if (access(command, X_OK) == -1)
+	{
+		perror("Error accessing file");
+		return (1);
+	}
+	int argc = 0;
+
+	while (argv[argc] != NULL)
+	{
+		argc++;
+	}
+
+	int envc = 0;
+
+	while (env[envc] != NULL)
+		envc++;
 	if (execve(command, argv, env) == -1)
 	{
 		perror("Error: (Our_execve) ");
