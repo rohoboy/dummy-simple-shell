@@ -18,7 +18,7 @@ int main()
 		inputstring[check_length - 1] = '\0';
 		if (check_length == -1)
                 {
-			perror("Error: (getline)");
+			perror("Error: (says main_test.c -getline)");
 			free(inputstring);
 			exit(EXIT_FAILURE);
                 }
