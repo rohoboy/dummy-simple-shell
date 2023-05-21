@@ -232,7 +232,14 @@ int replace_alias(info_t *);
 int replace_vars(info_t *);
 int replace_string(char **, char *);
 
+
 int our_execve(char *command, char **argv, char **env);
 int fork_and_wait(char *command, char **argv, char **env);
+int _stat(int argc, char **argv);
+char **print_path(char **env);
+int compare_strings(const char* str1, const char* str2);
+char **create_abs_path(char *filename, char **env);
+char *concat_strings(char *str1, char *str2);
+char **handle_path(char *file, char **environ);
 
 #endif

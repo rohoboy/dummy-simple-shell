@@ -6,10 +6,10 @@
 
 /**
  * fork_and_wait - a function to fork, wait and run execve
- * @argc: count the number of arguments
+ * @command: the command to execut
  * @argv: command line arguments
  * @env: environment
- * Return: 0
+ * Return: 0 if success or -1 if failed
  */
 int fork_and_wait(char *command, char **argv, char **env)
 {
