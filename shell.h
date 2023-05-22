@@ -241,5 +241,7 @@ int compare_strings(const char* str1, const char* str2);
 char **create_abs_path(char *filename, char **env);
 char *concat_strings(char *str1, char *str2);
 char **handle_path(char *file, char **environ);
+void print_env(char ** env);
+int our_strlen(char *str);
 
 #endif
