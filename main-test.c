@@ -50,12 +50,14 @@ int main(void)
 
 			if (compare_strings(argv[0], myexit))
 			{
-				write(1, "Exiting the program....\n", 30);
+				write(1, "Exiting the program....\n", 24);
 				sleep(2);
 				exit(0);
 			}
 			else if (compare_strings(argv[0], myprintenv))
+			{
 				print_env(environment);
+			}
 			else
 			{
 				char **tmp = path_var;
@@ -107,7 +109,7 @@ int main(void)
 						command = conc[m];
 						fork_and_wait(command, argv, environment);
 					}
-					if (c_index == 99)
+					if (c_index == 99 && *tmp == NULL)
 					{
 						write(1, "command [", 10);
 						write(1, argv[0], 20);

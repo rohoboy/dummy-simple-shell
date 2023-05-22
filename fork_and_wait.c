@@ -19,7 +19,6 @@ int fork_and_wait(char *command, char **argv, char **env)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("Could not create a process (says fork_and_wait.c");
 		return (-1);
 	}
 	else if (pid == 0)
