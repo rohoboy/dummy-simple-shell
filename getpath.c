@@ -82,4 +82,24 @@ char **print_path(char **env)
 	arrstr[i] = NULL;
 	return (arrstr);
 }
+/**
+ * set_env - a function to set environment
+ * @name: name of the environment
+ * @value: the value of the environment
+ * @overwrite: status
+ * Return: 0 otherwise -1
+ */
+int our_setenv(char *name, char *value, int overwrite)
+{
+	int res;
 
+	res = setenv(name, value, overwrite);
+	return (res);
+}
+int our_unsetenv(const char *name)
+{
+	int res;
+
+	res = unsetenv(name);
+	return (res);
+}

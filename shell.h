@@ -246,5 +246,7 @@ int our_strlen(char *str);
 ssize_t our_getline(char **lineptr, size_t *n, FILE *stream);
 char *our_strtok(char *str, const char *delim);
 void custom_exit(int argc, char **argv);
+int our_setenv(char *name, char *value, int overwrite);
+int our_unsetenv(const char *name);
 
 #endif

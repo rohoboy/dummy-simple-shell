@@ -20,7 +20,7 @@ int main(void)
 	while (1)
 	{
 
-		write(1, "geniuses@peter&@frank-shell/custom-strtok# ", our_strlen("geniuses@peter&@frank-shell/custom-strtok# "));
+		write(1, "geniuses@peter&@frank-shell/u/setenv# ", our_strlen("geniuses@peter&@frank-shell/u/setenv# "));
 		check_length = our_getline(&inputstring, &len, stdin);
 		inputstring[check_length - 1] = '\0';
 		if (check_length == -1)
@@ -46,6 +46,8 @@ int main(void)
 			argv[j] = NULL;
 			char *myexit = "exit";
 			char *myprintenv = "env";
+			char *mysetenvironment = "setenv";
+			char *myunsetenvironment = "unsetenv";
 
 			if (compare_strings(argv[0], myexit))
 			{
@@ -56,6 +58,26 @@ int main(void)
 			else if (compare_strings(argv[0], myprintenv))
 			{
 				print_env(environment);
+			}
+			else if (compare_strings(argv[0], mysetenvironment))
+			{
+				if (j != 3)
+				{
+					write(1, "invalid number of arguments\n", our_strlen("invalid number of arguments\n"));
+				}
+				else
+				{
+					our_setenv(argv[1], argv[2], 1);
+				}
+			}
+			else if (compare_strings(argv[0], myunsetenvironment))
+			{
+				const char *value = argv[1];
+
+				if (j != 2)
+					write(1, "invalid number of arguments\n", our_strlen("invalid number of arguments\n"));
+				else
+					our_unsetenv(value);
 			}
 			else
 			{
