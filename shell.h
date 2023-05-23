@@ -243,5 +243,6 @@ char *concat_strings(char *str1, char *str2);
 char **handle_path(char *file, char **environ);
 void print_env(char ** env);
 int our_strlen(char *str);
+ssize_t our_getline(char **lineptr, size_t *n, FILE *stream);
 
 #endif
