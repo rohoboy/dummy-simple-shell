@@ -53,7 +53,7 @@ int main(void)
 			{
 				write(1, "Exiting the program....\n", 24);
 				sleep(2);
-				exit(0);
+				custom_exit(j, argv);
 			}
 			else if (compare_strings(argv[0], myprintenv))
 			{
