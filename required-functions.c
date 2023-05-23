@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <stdbool.h>
 #include <unistd.h>
 #define BUFFER_SIZE 1024
 /**
@@ -93,19 +94,53 @@ ssize_t our_getline(char **lineptr, size_t *n, FILE *stream)
  * @delim: delimeters
  * Return: token
  */
-/*char *our_stktok(char *str, const char *delim)
+char *our_strtok(char *str, const char *delim)
 {
-	return (str);
+	static char* token = NULL;
+	static char* n_token = NULL;
+	size_t i;
+
+	if (str != NULL)
+		token = str;
+	else if (n_token == NULL)
+		return (NULL);
+	else
+		token = n_token;
+	if (*token == '\0')
+		return (NULL);
+
+	char *res = token;
+	bool is_delim = false;
+
+	while (*token != '\0')
+	{
+		is_delim = false;
+		for (i = 0; delim[i] != '\0'; i++)
+		{
+			if (*token == delim[i])
+			{
+				is_delim = true;
+				break;
+			}
+		}
+		if (is_delim)
+		{
+			*token = '\0';
+			token++;
+			break;
+		}
+		token++;
+	}
+	n_token = token;
+	return (res);
 }
-*/
 /*
  * change_dir - a function to change directory
  * @directory: directory name
  * Return: 0 if success otherwise -1
  */
-/*
-int change_dir(*char directory)
+int change_dir(char *directory)
 {
 	return (0);
 }
-*/
+
