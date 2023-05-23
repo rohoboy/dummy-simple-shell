@@ -134,13 +134,27 @@ char *our_strtok(char *str, const char *delim)
 	n_token = token;
 	return (res);
 }
-/*
- * change_dir - a function to change directory
- * @directory: directory name
- * Return: 0 if success otherwise -1
+/**
+ * custom_exit - function to exit
+ * @argc: argument count
+ * @argv - arguments
+ * Return: Nothing
  */
-int change_dir(char *directory)
+void custom_exit(int argc, char *argv[])
 {
-	return (0);
-}
+	int status;
 
+	if (argc == 1)
+		exit(0);
+	else if (argc == 2)
+	{
+		status = _atoi(argv[1]);
+		exit(status);
+	}
+	else
+	{
+		write(1, "usage : ", our_strlen("usage : "));
+		write(1, argv[1], our_strlen(argv[1]));
+		write(1,"\n", 1);
+	}
+}
