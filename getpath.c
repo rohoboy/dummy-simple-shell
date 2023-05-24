@@ -91,10 +91,9 @@ char **print_path(char **env)
  */
 int our_setenv(char *name, char *value, int overwrite)
 {
-	int res;
-
-	res = setenv(name, value, overwrite);
-	return (res);
+	if (name == NULL || value == 0)
+		return (-1);
+	return (0);
 }
 int our_unsetenv(const char *name)
 {

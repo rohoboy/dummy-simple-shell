@@ -15,12 +15,17 @@ int main(void)
 	size_t len = 0;
 	char *inputstring = NULL;
 	char *token;
+	int B_SIZE =1024;
+	char cwd[B_SIZE];
 
 
 	while (1)
 	{
 
-		write(1, "geniuses@peter&@frank-shell/custom-strtok# ", our_strlen("geniuses@peter&@frank-shell/custom-strtok# "));
+		write(1, "geniuses@peter@frank", our_strlen("geniuses@peter@frank"));
+		write(1, getcwd(cwd, B_SIZE), our_strlen(getcwd(cwd, B_SIZE)));
+		write(1, "# ", 2);
+
 		check_length = our_getline(&inputstring, &len, stdin);
 		inputstring[check_length - 1] = '\0';
 		if (check_length == -1)
@@ -48,12 +53,13 @@ int main(void)
 			char *myprintenv = "env";
 			char *mysetenvironment = "setenv";
 			char *myunsetenvironment = "unsetenv";
+			char *mychangedir = "cd";
 
 			if (compare_strings(argv[0], myexit))
 			{
 				write(1, "Exiting the program....\n", 24);
 				sleep(2);
-				exit(0);
+				custom_exit(j, argv);
 			}
 			else if (compare_strings(argv[0], myprintenv))
 			{
@@ -67,7 +73,10 @@ int main(void)
 				}
 				else
 				{
-					our_setenv(argv[1], argv[2], 1);
+					int success = our_setenv(argv[1], argv[2], 1);
+
+					if (success == -1)
+						write(1, "unsuccessiful\n", our_strlen("unsuccessiful\n"));
 				}
 			}
 			else if (compare_strings(argv[0], myunsetenvironment))
@@ -78,6 +87,10 @@ int main(void)
 					write(1, "invalid number of arguments\n", our_strlen("invalid number of arguments\n"));
 				else
 					our_unsetenv(value);
+			}
+			else if (compare_strings(argv[0], mychangedir))
+			{
+				change_dir(argv[1], B_SIZE);
 			}
 			else
 			{
