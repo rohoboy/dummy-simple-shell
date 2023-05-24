@@ -250,5 +250,6 @@ int our_setenv(char *name, char *value, int overwrite);
 int our_unsetenv(const char *name);
 void change_dir(char *directory, int len);
 size_t _sizeof(const void *pointer);
+char *my_strcpy(char *dest, const char *src);
 
 #endif
