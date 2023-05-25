@@ -1,7 +1,6 @@
 #include "shell.h"
 #include <stdbool.h>
 #include <unistd.h>
-#define BUFFER_SIZE 1024
 /**
  * our_strlen - function to return the length of a string
  * @str: string to check
@@ -27,10 +26,11 @@ void print_env(char **env)
 	while (*env != NULL)
 	{
 		char *myenv = *env;
+
 		len = our_strlen(myenv);
 		env++;
 		write(1, myenv, len);
-		write(1, "\n",1);
+		write(1, "\n", 1);
 	}
 }
 /**
@@ -43,11 +43,8 @@ void print_env(char **env)
 ssize_t our_getline(char **lineptr, size_t *n, FILE *stream)
 {
 	static char buffer[BUFFER_SIZE];
-	/*size_t bytes_to_read;*/
-	size_t total_bytes_to_read = 0;
-	static size_t b_pos = 0;
-	static size_t b_size = 0;
-	char ccp;
+	size_t total_bytes_to_read = 0, b_size, b_pos;
+	char *new_lineptr = (char *)realloc(*lineptr, b_size);
 
 	if (lineptr == NULL || n == NULL || stream == NULL)
 		return (-1);
@@ -67,13 +64,12 @@ ssize_t our_getline(char **lineptr, size_t *n, FILE *stream)
 				break;
 			b_pos = 0;
 		}
-		ccp = buffer[b_pos++];
+		char ccp = buffer[b_pos++];
 		(*lineptr)[total_bytes_to_read++] = ccp;
 
 		if (total_bytes_to_read >= *n)
 		{
 			b_size += BUFFER_SIZE;
-			char *new_lineptr = (char *)realloc(*lineptr, b_size);
 			if (new_lineptr == NULL)
 				return (-1);
 			*lineptr = new_lineptr;
@@ -85,27 +81,25 @@ ssize_t our_getline(char **lineptr, size_t *n, FILE *stream)
 	if (total_bytes_to_read == 0)
 		return (-1);
 	(*lineptr)[total_bytes_to_read] = '\0';
-
 	return (total_bytes_to_read);
 }
 /**
- * our_stktok - a function that immitates stktok
+ * our_strtok - a function that immitates stktok
  * @str: a string to breake to tokens
  * @delim: delimeters
  * Return: token
  */
 char *our_strtok(char *str, const char *delim)
 {
-	static char* token = NULL;
-	static char* n_token = NULL;
+	static char *token;
+	static char *n_token;
 	size_t i;
 
 	if (str != NULL)
 		token = str;
 	else if (n_token == NULL)
 		return (NULL);
-	else
-		token = n_token;
+	token = n_token;
 	if (*token == '\0')
 		return (NULL);
 
@@ -137,7 +131,7 @@ char *our_strtok(char *str, const char *delim)
 /**
  * custom_exit - function to exit
  * @argc: argument count
- * @argv - arguments
+ * @argv: arguments
  * Return: Nothing
  */
 void custom_exit(int argc, char *argv[])
@@ -155,6 +149,6 @@ void custom_exit(int argc, char *argv[])
 	{
 		write(1, "usage : ", our_strlen("usage : "));
 		write(1, argv[1], our_strlen(argv[1]));
-		write(1,"\n", 1);
+		write(1, "\n", 1);
 	}
 }
